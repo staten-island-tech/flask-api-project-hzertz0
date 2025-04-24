@@ -1,0 +1,34 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.item-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* or 'center' if you want them centered */
+    margin: 0 auto;
+    max-width: none; /* remove width limit */
+    width: 100%; /* take full width */
+}
+
+.item {
+    border: 2px solid #ccc;
+    padding: 10px;
+    margin: 0; /* Remove spacing between boxes */
+    width: 175px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+}
