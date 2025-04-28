@@ -7,25 +7,30 @@ h1 {
     text-align: center;
 }
 
+a {
+    display: inline-block;
+    margin: 10px;
+    text-decoration: none;
+    color: #007BFF;
+}
+
 .item-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* or 'center' if you want them centered */
+    justify-content: center;
     margin: 0 auto;
-    max-width: none; /* remove width limit */
-    width: 100%; /* take full width */
+    width: 100%;
 }
 
 .item {
     border: 2px solid #ccc;
     padding: 10px;
-    margin: 0; /* Remove spacing between boxes */
+    margin: 5px;
     width: 175px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 img {

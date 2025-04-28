@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Minecraft Blocks</title>
+    <title>Minecraft Items</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Minecraft Items</h1>
     <div class="item-container">
         {% for item in items %}
-            <div class="item">
+        <div class="item">
+            <a href="{{ url_for('item_detail', item_id=item.id) }}">
                 <img src="{{ item.image }}" alt="{{ item.name }}">
-                <h3>{{ item.name }}</h3>
-            </div>
-        {% endfor %}
+            </a>
+            <h3>{{ item.name }}</h3>
+        </div>
+    {% endfor %}    
     </div>
 </body>
 </html>
