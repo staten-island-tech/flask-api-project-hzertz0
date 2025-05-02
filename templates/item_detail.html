@@ -6,12 +6,31 @@
 </head>
 <body>
     <a href="{{ url_for('index') }}">&larr; Back to list</a>
+
     <div class="item-detail">
         <h1>{{ item.name }}</h1>
         <img src="{{ item.image }}" alt="{{ item.name }}">
+
         <p><strong>Description:</strong> {{ item.description }}</p>
         <p><strong>Stack Size:</strong> {{ item.stackSize }}</p>
         <p><strong>Renewable:</strong> {{ 'Yes' if item.renewable else 'No' }}</p>
+
+        {% if recipe_grid %}
+            <h2>Crafting Recipe</h2>
+            <div class="recipe-grid">
+                {% for i in range(9) %}
+                    {% set slot = recipe_grid[i] %}
+                    <div class="recipe-item">
+                        {% if slot and slot.image %}
+                            <!-- Make each item clickable -->
+                            <a href="{{ url_for('item_detail', item_name=slot.name | urlencode) }}">
+                                <img src="{{ slot.image }}" alt="{{ slot.name }}">
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
 </body>
 </html>

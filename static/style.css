@@ -62,7 +62,7 @@ a {
     text-align: center;
 }
 
-/* Detail page */
+/* Detail page container box */
 .item-detail {
     max-width: 600px;
     margin: 40px auto;
@@ -74,6 +74,7 @@ a {
     text-align: center;
 }
 
+/* Item detail content */
 .item-detail img {
     width: 150px;
     height: 150px;
@@ -90,126 +91,43 @@ a {
     color: #444;
 }
 
-blockb lcok block
-/* General page styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f9f9f9;
-    color: #333;
-}
-
-h1 {
-    text-align: center;
-    color: #222;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-/* Ensure the item-link behaves like a block */
-.item-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-}
-
-/* Main item list page */
-.item-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
-}
-
-.item {
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    width: 175px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.item img {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-}
-
-.item h3 {
-    margin-top: 10px;
-    font-size: 1em;
-    text-align: center;
-}
-
-/* Detail page */
-.item-detail {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    text-align: center;
-}
-
-.item-detail img {
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
-    margin: 20px 0;
-}
-
-.item-detail p {
-    font-size: 1.1em;
-    margin: 10px 0;
-}
-
-.item-detail strong {
-    color: #444;
-}
-
-/* Recipe grid */
+/* Crafting Recipe Grid */
 .recipe-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.recipe-row {
-    display: flex;
-    justify-content: space-between;
+    grid-template-columns: repeat(3, 80px);
+    grid-template-rows: repeat(3, 80px);
+    margin: 20px auto 0 auto;
+    width: fit-content;
 }
 
 .recipe-item {
+    width: 80px;
+    height: 80px;
     border: 1px solid #ccc;
-    padding: 10px;
     background-color: #fafafa;
-    text-align: center;
-    font-size: 0.9em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+/* Ensuring the whole item grid square is clickable */
+.recipe-item a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none; /* Prevents default link styling */
+}
+
+/* Hover effect for clickable items */
+.recipe-item a:hover {
+    background-color: #e0e0e0; /* Light grey background on hover */
 }
 
 .recipe-item img {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     object-fit: contain;
-}
-
-.recipe-item p {
-    margin-top: 5px;
 }
