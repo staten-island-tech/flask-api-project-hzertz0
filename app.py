@@ -50,26 +50,49 @@ def item_detail(item_name):
     if item is None:
         return f"No item found with name: {decoded_name}"
 
-    # Match recipe for this item
-    recipe = next((r for r in recipes if r['item'].lower() == item['name'].lower()), None)
+    # Collect all recipes for this item
+    item_recipes = [r for r in recipes if r['item'].lower() == item['name'].lower()]
 
-    # Prepare 3x3 recipe grid
-    recipe_grid = []
-    if recipe and not recipe.get('shapeless', False):
-        for name in recipe['recipe']:
-            if name is None:
-                recipe_grid.append(None)
-            else:
-                matched = next((i for i in items if i['name'].lower() == name.lower()), None)
-                if matched:
-                    recipe_grid.append({
-                        'name': matched['name'],
-                        'image': matched['image']
-                    })
+    # Prepare recipe grids for all recipes
+    recipe_grids = []
+    for recipe in item_recipes:
+        recipe_grid = []
+        
+        # Handle Shaped Recipes
+        if recipe and not recipe.get('shapeless', False):
+            for name in recipe['recipe']:
+                if name is None:
+                    recipe_grid.append(None)
                 else:
-                    recipe_grid.append({'name': name, 'image': None})
+                    matched = next((i for i in items if i['name'].lower() == name.lower()), None)
+                    if matched:
+                        recipe_grid.append({
+                            'name': matched['name'],
+                            'image': matched['image']
+                        })
+                    else:
+                        recipe_grid.append({'name': name, 'image': None})
 
-    return render_template("item_detail.html", item=item, recipe_grid=recipe_grid)
+        # Handle Shapeless Recipes
+        elif recipe and recipe.get('shapeless', False):
+            for name in recipe['recipe']:
+                if name is None:
+                    recipe_grid.append(None)
+                else:
+                    matched = next((i for i in items if i['name'].lower() == name.lower()), None)
+                    if matched:
+                        recipe_grid.append({
+                            'name': matched['name'],
+                            'image': matched['image']
+                        })
+                    else:
+                        recipe_grid.append({'name': name, 'image': None})
+
+        recipe_grids.append(recipe_grid)
+
+    return render_template("item_detail.html", item=item, recipe_grids=recipe_grids)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

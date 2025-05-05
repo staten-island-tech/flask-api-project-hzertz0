@@ -3,6 +3,18 @@
 <head>
     <title>{{ item.name }} - Minecraft Item Info</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Add the flicker animation */
+        @keyframes flicker {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .recipe-grid-container {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <a href="{{ url_for('index') }}">&larr; Back to list</a>
@@ -15,22 +27,66 @@
         <p><strong>Stack Size:</strong> {{ item.stackSize }}</p>
         <p><strong>Renewable:</strong> {{ 'Yes' if item.renewable else 'No' }}</p>
 
-        {% if recipe_grid %}
-            <h2>Crafting Recipe</h2>
-            <div class="recipe-grid">
-                {% for i in range(9) %}
-                    {% set slot = recipe_grid[i] %}
-                    <div class="recipe-item">
-                        {% if slot and slot.image %}
-                            <!-- Make each item clickable -->
-                            <a href="{{ url_for('item_detail', item_name=slot.name | urlencode) }}">
-                                <img src="{{ slot.image }}" alt="{{ slot.name }}">
-                            </a>
-                        {% endif %}
+        {% if recipe_grids %}
+            <h2>Crafting Recipes</h2>
+
+            <div id="recipe-container">
+                {% for recipe_grid in recipe_grids %}
+                    <div class="recipe-grid-container" id="recipe-{{ loop.index0 }}">
+                        <div class="recipe-grid">
+                            {% for i in range(9) %}
+    {% set slot = recipe_grid[i] %}
+    <div class="recipe-item">
+        {% if slot %}
+            <a href="{{ url_for('item_detail', item_name=slot.name | urlencode) }}">
+                <img src="{{ slot.image }}" alt="{{ slot.name }}">
+            </a>
+        {% else %}
+            <!-- Render an empty slot with a fixed size if the slot is None -->
+            <div class="empty-slot"></div>
+        {% endif %}
+    </div>
+{% endfor %}
+
+                        </div>
                     </div>
                 {% endfor %}
             </div>
+
         {% endif %}
     </div>
+
+    <script>
+        // JavaScript to cycle through recipes every second
+        let currentRecipeIndex = 0;
+        const recipes = document.querySelectorAll('.recipe-grid-container');
+        const recipeCount = recipes.length; // Get the number of recipes
+    
+        function showNextRecipe() {
+            // If there's more than one recipe, continue cycling
+            if (recipeCount > 1) {
+                // Hide the current recipe
+                recipes[currentRecipeIndex].style.display = 'none';
+    
+                // Increment to the next recipe index
+                currentRecipeIndex = (currentRecipeIndex + 1) % recipeCount;
+    
+                // Show the next recipe
+                recipes[currentRecipeIndex].style.display = 'block';
+            }
+        }
+    
+        // Start the recipe cycling only if there are multiple recipes
+        if (recipeCount > 1) {
+            setInterval(showNextRecipe, 1000);  // Switch every 1000ms (1 second)
+        }
+    
+        // Initially show the first recipe
+        if (recipeCount > 0) {
+            recipes[currentRecipeIndex].style.display = 'block';
+        }
+    </script>
+    
+    
 </body>
 </html>
