@@ -63,6 +63,16 @@ def item_detail(item_name):
             for name in recipe['recipe']:
                 if name is None:
                     recipe_grid.append(None)
+                elif isinstance(name, list):  # Handle multiple possible items in a slot
+                    # Pick the first matching item (or you could randomize, or show all later)
+                    matched = next((i for i in items if i['name'].lower() == name[0].lower()), None)
+                    if matched:
+                        recipe_grid.append({
+                            'name': matched['name'],
+                            'image': matched['image']
+                        })
+                    else:
+                        recipe_grid.append({'name': name[0], 'image': None})
                 else:
                     matched = next((i for i in items if i['name'].lower() == name.lower()), None)
                     if matched:
