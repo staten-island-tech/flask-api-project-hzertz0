@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import requests
 import urllib.parse
 
@@ -37,6 +37,24 @@ def index():
 
     return render_template("index.html", items=item_list)
 
+@app.route("/search")
+def search():
+    query = request.args.get('query', '').lower()
+    items = get_item_list()
+    if items is None:
+        return "Error fetching item list"
+
+    # Filter items based on the search query (case-insensitive search)
+    filtered_items = [item for item in items if query in item['name'].lower()]
+
+    # Prepare the item list for the template
+    item_list = [{
+        'name': item['name'],
+        'image': item['image']
+    } for item in filtered_items]
+
+    return render_template("index.html", items=item_list)
+
 @app.route("/item/<path:item_name>")
 def item_detail(item_name):
     items = get_item_list()
@@ -64,7 +82,6 @@ def item_detail(item_name):
                 if name is None:
                     recipe_grid.append(None)
                 elif isinstance(name, list):  # Handle multiple possible items in a slot
-                    # Pick the first matching item (or you could randomize, or show all later)
                     matched = next((i for i in items if i['name'].lower() == name[0].lower()), None)
                     if matched:
                         recipe_grid.append({
@@ -101,8 +118,6 @@ def item_detail(item_name):
         recipe_grids.append(recipe_grid)
 
     return render_template("item_detail.html", item=item, recipe_grids=recipe_grids)
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
