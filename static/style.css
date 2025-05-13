@@ -100,6 +100,10 @@ a {
     width: fit-content;
 }
 
+.recipe-grid-container {
+    display: none;
+}
+
 .recipe-item {
     width: 80px;
     height: 80px;
@@ -160,3 +164,9 @@ a {
 .search-form button:hover {
     background-color: #0084ff; /* Darker green on hover */
 }
+        /* Add the flicker animation */
+        @keyframes flicker {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }

@@ -3,18 +3,6 @@
 <head>
     <title>{{ item.name }} - Minecraft Item Info</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        /* Add the flicker animation */
-        @keyframes flicker {
-            0% { opacity: 0; }
-            50% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        .recipe-grid-container {
-            display: none;
-        }
-    </style>
 </head>
 <body>
     <a href="{{ url_for('index') }}">&larr; Back to list</a>
@@ -56,7 +44,7 @@
         {% endif %}
     </div>
 
-    <script>
+    <script> 
         // JavaScript to cycle through recipes every second
         let currentRecipeIndex = 0;
         const recipes = document.querySelectorAll('.recipe-grid-container');
